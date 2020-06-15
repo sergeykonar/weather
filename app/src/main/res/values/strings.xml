@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="city_name">Prague</string>
+    <string name="city_temperature">+27 °C</string>
+
+    <string name="sunrise">Sunrise</string>
+    <string name="pressure">Pressure</string>
+
+    <string name="sunrise_time" translatable="false">04:20</string>
+    <string name="pressure_level" translatable="false">1000</string>
+</resources>
