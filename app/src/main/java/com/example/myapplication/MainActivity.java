@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,15 +16,51 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView text;
     TextView cityName;
-
+    Button info;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        cityName = (TextView) findViewById(R.id.cityName);
+        info = (Button) findViewById(R.id.button8);
 
+        String city;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                city= null;
+            } else {
+                city= extras.getString("CITY");
+                cityName.setText(city);
+            }
+        } else {
+            city= (String) savedInstanceState.getSerializable("CITY");
+            cityName.setText(city);
+        }
 
+        info.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                CharSequence c = cityName.getText();
+                String url = "https://ru.wikipedia.org/wiki/";
+                if(cityName.getText().equals("Prague")){
+                    url = url + "Прага";
+                }
+                if(cityName.getText().equals("London")){
+                    url = url + "Лондон";
+                }
+                if(cityName.getText().equals("Kyiv")){
+                    url = url + "Киев";
+                }
+                if(cityName.getText().equals("New York")){
+                    url = url + "Нью-Йорк";
+                }
+                Uri uri = Uri.parse(url);
+                Intent browser = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(browser);
 
+            }
+        });
     }
 
     public void chooseTheCity(View view) {

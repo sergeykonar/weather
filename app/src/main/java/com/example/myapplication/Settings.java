@@ -9,15 +9,14 @@ import android.widget.Switch;
 import android.widget.Toast;
 import android.content.Context;
 
-public class Settings extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
+public class Settings extends AppCompatActivity  {
 
     String lightTheme="0";
     String badWeather = "0";
-
+    String TAG = "WEATHER";
     Switch switch1;
     Switch switch3;
     private SharedPreferences sharedPrefs;
-    private SharedPreferences sharedPrefs2;
     public static final String myPrefs = "myprefs";
     public static final String myPrefs2 = "myprefs2";
     public static final String nameKey = "nameKey";
@@ -32,20 +31,51 @@ public class Settings extends AppCompatActivity implements CompoundButton.OnChec
         //После этой строки нужно искать все View элементы в activity_settings
         switch1 = (Switch) findViewById(R.id.switch1);
         switch3 = (Switch) findViewById(R.id.switch3);
-        switch1.setOnCheckedChangeListener(this);
-        switch3.setOnCheckedChangeListener(this);
+        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    lightTheme = "1";
+                    System.out.println(lightTheme);
+                    SharedPreferences.Editor editor = sharedPrefs.edit();
+                    editor.putString(nameKey, lightTheme);
+                    editor.apply();
+                } else {
+                    lightTheme = "0";
+                    System.out.println(lightTheme);
+                    SharedPreferences.Editor editor = sharedPrefs.edit();
+                    editor.putString(nameKey, lightTheme);
+                    editor.apply();
+                }
+            }
+        });
+        switch3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    badWeather = "1";
+                    System.out.println(badWeather);
+                    SharedPreferences.Editor editor2 = sharedPrefs.edit();
+                    editor2.putString(nameKey2, badWeather);
+                    editor2.apply();
+                } else {
+                    badWeather = "0";
+                    System.out.println(badWeather);
+                    SharedPreferences.Editor editor2 = sharedPrefs.edit();
+                    editor2.putString(nameKey2, badWeather);
+                    editor2.apply();
+                }
+            }
+        });
+
         Toast.makeText(getApplicationContext(), "Запуск", Toast.LENGTH_SHORT).show();
         Log.d("LOG", "Запуск");
 
         sharedPrefs = getSharedPreferences(myPrefs, Context.MODE_PRIVATE);
-        sharedPrefs2 = getSharedPreferences(myPrefs2, Context.MODE_PRIVATE);
-        if (sharedPrefs.contains(nameKey) || sharedPrefs2.contains(nameKey2)) {
-            // если есть, то ставим значение этого ключа в EditText
+        sharedPrefs = getSharedPreferences(myPrefs2, Context.MODE_PRIVATE);
+        if (sharedPrefs.contains(nameKey) || sharedPrefs.contains(nameKey2)) {
             lightTheme = sharedPrefs.getString(nameKey, "");
-            badWeather = sharedPrefs2.getString(nameKey2, "");
+            badWeather = sharedPrefs.getString(nameKey2, "");
         }
 
-        Toast.makeText(this, "Text loaded", Toast.LENGTH_SHORT).show();
 
             System.out.println(lightTheme);
             if(lightTheme.equals("1")){
@@ -60,100 +90,35 @@ public class Settings extends AppCompatActivity implements CompoundButton.OnChec
             else if(badWeather.equals("0")){
                 switch3.setChecked(false);
             }
-
-
-
+            log("Settings were set");
     }
 
 
     private void setOnCheckedChangeListener(Settings settings) {
     }
 
-
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Toast.makeText(this, "Отслеживание переключения: " + " " +" " + (isChecked ? "on" : "off"),
-                Toast.LENGTH_SHORT).show();
-        switch (buttonView.getId()) {
-            case R.id.switch1:
-                if (isChecked) {
-                    lightTheme = "1";
-                    System.out.println(lightTheme);
-                    SharedPreferences.Editor editor = sharedPrefs.edit();
-                    editor.putString(nameKey, lightTheme);
-                    editor.apply();
-                } else {
-                    lightTheme = "0";
-                    System.out.println(lightTheme);
-                    SharedPreferences.Editor editor = sharedPrefs.edit();
-                    editor.putString(nameKey, lightTheme);
-                    editor.apply();
-                }
-            case R.id.switch3:
-                if (isChecked) {
-                    badWeather = "1";
-                    System.out.println(badWeather);
-                    SharedPreferences.Editor editor2 = sharedPrefs2.edit();
-                    editor2.putString(nameKey2, badWeather);
-                    editor2.apply();
-                } else {
-                    badWeather = "0";
-                    System.out.println(badWeather);
-                    SharedPreferences.Editor editor2 = sharedPrefs2.edit();
-                    editor2.putString(nameKey2, badWeather);
-                    editor2.apply();
-                }
-        }
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle saveInstanceState){
         super.onSaveInstanceState(saveInstanceState);
-        Toast.makeText(getApplicationContext(), "onSaveInstanceState()", Toast.LENGTH_SHORT).show();
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-        SharedPreferences.Editor editor2 = sharedPrefs2.edit();
-        // сохраняем по текст из EditText по ключу nameKey
-        editor.putString(nameKey, lightTheme);
-        editor2.putString(nameKey2, badWeather);
-        editor.apply();
-        editor2.apply();
-
-        Toast.makeText(this, "Text saved" + lightTheme +" " + badWeather, Toast.LENGTH_SHORT).show();
+        log("onSaveInstanceState");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d("LOG", "Вызов функции onStop()");
-
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-        SharedPreferences.Editor editor2 = sharedPrefs2.edit();
-        // сохраняем по текст из EditText по ключу nameKey
-        editor.putString(nameKey, lightTheme);
-        editor2.putString(nameKey2, badWeather);
-        editor.apply();
-        editor2.apply();
-
-        System.out.println(lightTheme +" " + badWeather);
-        Toast.makeText(this, "Text saved" + lightTheme +" " + badWeather, Toast.LENGTH_SHORT).show();
+        log("onStop()");
     }
 
     @Override
     public void onBackPressed() {
 
         super.onBackPressed();
-        Log.d("LOG", "Back");
-
-        SharedPreferences.Editor editor = sharedPrefs.edit();
-        SharedPreferences.Editor editor2 = sharedPrefs2.edit();
-        // сохраняем по текст из EditText по ключу nameKey
-        editor.putString(nameKey, lightTheme);
-        editor2.putString(nameKey2, badWeather);
-        editor.apply();
-        editor2.apply();
-
-        System.out.println(lightTheme +" " + badWeather);
+        log("Back pressed");
 
     }
 
-
+    public void log(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Log.d(TAG, message);
+    }
 }

@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:configChanges="orientation"
         android:theme="@style/AppTheme">
-        <activity android:name=".Settings" android:launchMode="singleTop"></activity>
-        <activity android:name=".Cities" />
-        <activity android:name=".MainActivity" android:parentActivityName="com.example.myapplication.MainActivity">
+        <activity android:name=".Settings" android:launchMode="singleTop" android:parentActivityName="com.example.myapplication.MainActivity"></activity>
+        <activity android:name=".Cities" android:parentActivityName="com.example.myapplication.MainActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
