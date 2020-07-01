@@ -22,7 +22,7 @@ public class Cities extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities);
-        String [] cities = new String [] {"Prague", "London", "Kyiv", "New York"};
+        final String [] cities = new String [] {"Prague", "London", "Kyiv", "New York"};
         city1 = (Button) findViewById(R.id.button);
         city2 = (Button) findViewById(R.id.button2);
         city3 = (Button) findViewById(R.id.button3);
@@ -32,23 +32,23 @@ public class Cities extends AppCompatActivity {
 
         city1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                setCity("Prague");
+                setCity(cities[0]);
             }
         });
 
         city2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                setCity("London");
+                setCity(cities[1]);
             }
         });
         city3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                setCity("Kyiv");
+                setCity(cities[2]);
             }
         });
         city4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                setCity("New York");
+                setCity(cities[3]);
             }
         });
         find.setOnClickListener(new View.OnClickListener() {
