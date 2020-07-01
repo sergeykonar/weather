@@ -35,16 +35,10 @@ public class Settings extends AppCompatActivity  {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     lightTheme = "1";
-                    System.out.println(lightTheme);
-                    SharedPreferences.Editor editor = sharedPrefs.edit();
-                    editor.putString(nameKey, lightTheme);
-                    editor.apply();
+                    setLightTheme(lightTheme);
                 } else {
                     lightTheme = "0";
-                    System.out.println(lightTheme);
-                    SharedPreferences.Editor editor = sharedPrefs.edit();
-                    editor.putString(nameKey, lightTheme);
-                    editor.apply();
+                    setLightTheme(lightTheme);
                 }
             }
         });
@@ -52,16 +46,10 @@ public class Settings extends AppCompatActivity  {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     badWeather = "1";
-                    System.out.println(badWeather);
-                    SharedPreferences.Editor editor2 = sharedPrefs.edit();
-                    editor2.putString(nameKey2, badWeather);
-                    editor2.apply();
+                    setBadWeather(badWeather);
                 } else {
                     badWeather = "0";
-                    System.out.println(badWeather);
-                    SharedPreferences.Editor editor2 = sharedPrefs.edit();
-                    editor2.putString(nameKey2, badWeather);
-                    editor2.apply();
+                    setBadWeather(badWeather);
                 }
             }
         });
@@ -70,7 +58,6 @@ public class Settings extends AppCompatActivity  {
         Log.d("LOG", "Запуск");
 
         sharedPrefs = getSharedPreferences(myPrefs, Context.MODE_PRIVATE);
-        sharedPrefs = getSharedPreferences(myPrefs2, Context.MODE_PRIVATE);
         if (sharedPrefs.contains(nameKey) || sharedPrefs.contains(nameKey2)) {
             lightTheme = sharedPrefs.getString(nameKey, "");
             badWeather = sharedPrefs.getString(nameKey2, "");
@@ -95,6 +82,21 @@ public class Settings extends AppCompatActivity  {
 
 
     private void setOnCheckedChangeListener(Settings settings) {
+    }
+
+    private void setLightTheme(String l){
+
+        System.out.println(lightTheme);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putString(nameKey, l);
+        editor.apply();
+    }
+
+    private void setBadWeather(String w){
+        System.out.println(badWeather);
+        SharedPreferences.Editor editor2 = sharedPrefs.edit();
+        editor2.putString(nameKey2, w);
+        editor2.apply();
     }
 
     @Override

@@ -14,9 +14,9 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    TextView text;
-    TextView cityName;
-    Button info;
+    private TextView text;
+    private TextView cityName;
+    private Button info;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("CITY", cityName.getText());
     }
 
     public void chooseTheCity(View view) {

@@ -12,17 +12,17 @@ import android.widget.TextView;
 
 public class Cities extends AppCompatActivity {
 
-    Button city1;
-    Button city2;
-    Button city3;
-    Button city4;
-    Button find;
-    EditText findCity;
+    private Button city1;
+    private Button city2;
+    private Button city3;
+    private Button city4;
+    private Button find;
+    private EditText findCity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities);
-
+        String [] cities = new String [] {"Prague", "London", "Kyiv", "New York"};
         city1 = (Button) findViewById(R.id.button);
         city2 = (Button) findViewById(R.id.button2);
         city3 = (Button) findViewById(R.id.button3);
@@ -32,35 +32,23 @@ public class Cities extends AppCompatActivity {
 
         city1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Context context = getApplicationContext();
-                Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("CITY", "Pargue");
-                startActivity(intent);
+                setCity("Prague");
             }
         });
 
         city2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Context context = getApplicationContext();
-                Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("CITY", "London");
-                startActivity(intent);
+                setCity("London");
             }
         });
         city3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Context context = getApplicationContext();
-                Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("CITY", "Kyiv");
-                startActivity(intent);
+                setCity("Kyiv");
             }
         });
         city4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Context context = getApplicationContext();
-                Intent intent = new Intent(context, MainActivity.class);
-                intent.putExtra("CITY", "New York");
-                startActivity(intent);
+                setCity("New York");
             }
         });
         find.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +61,12 @@ public class Cities extends AppCompatActivity {
             }
         });
     }
-
+    private void setCity(String cityName){
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("CITY", cityName);
+        startActivity(intent);
+    }
 //    public void cityIsChosen(View view) {
 //        Intent intent = new Intent(this, MainActivity.class);
 //        startActivity(intent);
