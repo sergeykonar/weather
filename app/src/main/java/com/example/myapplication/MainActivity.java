@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        
+
         SocnetAdapter adapter = new SocnetAdapter(data);
         recyclerView.setAdapter(adapter);
 
