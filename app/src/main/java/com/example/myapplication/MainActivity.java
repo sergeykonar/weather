@@ -6,17 +6,27 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView text;
     private TextView cityName;
     private Button info;
+    private String [] temperature = {"+22 - Monday", "+26 - Tuesday", "+25 - Wednesday", "+50 - Thursday", "-20 - Friday"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +34,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         cityName = (TextView) findViewById(R.id.cityName);
         info = (Button) findViewById(R.id.button8);
+
+
+        initRecyclerView(temperature);
+
+
+
 
         String city;
         if (savedInstanceState == null) {
@@ -65,7 +81,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Context context = getApplicationContext();
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra("CITY", cityName.getText());
+
+
     }
+
 
     public void chooseTheCity(View view) {
         Intent intent = new Intent(this, Cities.class);
@@ -75,6 +94,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void goToSettings(View view) {
         Intent intent = new Intent(this, Settings.class);
         startActivity(intent);
+    }
+
+    private void initRecyclerView(String[] data){
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
+        // Эта установка служит для повышения производительности системы
+        recyclerView.setHasFixedSize(true);
+
+        // Будем работать со встроенным менеджером
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Установим адаптер
+        SocnetAdapter adapter = new SocnetAdapter(data);
+        recyclerView.setAdapter(adapter);
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this,  LinearLayoutManager.VERTICAL);
+        itemDecoration.setDrawable(getDrawable(R.drawable.separator));
+        recyclerView.addItemDecoration(itemDecoration);
+
     }
 
 
