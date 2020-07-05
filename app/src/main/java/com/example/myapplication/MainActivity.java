@@ -99,14 +99,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initRecyclerView(String[] data){
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
-        // Эта установка служит для повышения производительности системы
+
         recyclerView.setHasFixedSize(true);
 
-        // Будем работать со встроенным менеджером
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        // Установим адаптер
+        
         SocnetAdapter adapter = new SocnetAdapter(data);
         recyclerView.setAdapter(adapter);
 
