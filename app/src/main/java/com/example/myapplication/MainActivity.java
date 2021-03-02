@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView text;
     private TextView cityName;
     private Button info;
+    private String s;
     private TextView cityTemp;
     private static final String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
     private static final String WEATHER_API_KEY = "&units=metric&appid=e89813f0aac2ffe098b97f711aae632a";
